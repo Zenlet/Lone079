@@ -41,7 +41,7 @@ namespace Lone079
 					}
 				}
 				global::NineTailedFoxAnnouncer.ScpDeath scpDeath = global::NineTailedFoxAnnouncer.scpDeaths[i];
-				global::DamageTypes.DamageType damageType = scpDeath.hitInfo.GetDamageType();
+				global::DamageTypes.DamageType damageType = scpDeath.hitInfo.Tool;
 				if (damageType == global::DamageTypes.Tesla)
 				{
 					text += "SUCCESSFULLY TERMINATED BY AUTOMATIC SECURITY SYSTEM";
@@ -73,7 +73,7 @@ namespace Lone079
 							goto IL_207;
 						}
 						scpDeath = global::NineTailedFoxAnnouncer.scpDeaths[i];
-						if (scpDeath.hitInfo.GetDamageType() != global::DamageTypes.RagdollLess)
+						if (scpDeath.hitInfo.Tool != global::DamageTypes.RagdollLess)
 						{
 							goto IL_207;
 						}
@@ -144,11 +144,5 @@ namespace Lone079
 			global::NineTailedFoxAnnouncer.scpDeaths.Clear();
 			return false;
         }
-    }
-
-    [HarmonyPatch(typeof(NineTailedFoxAnnouncer), nameof(NineTailedFoxAnnouncer.CheckForZombies))]
-    class Patch2
-    {
-        public static bool Prefix() => false;
     }
 }

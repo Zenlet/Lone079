@@ -18,7 +18,7 @@ namespace Lone079
 
 			instance = this;
 
-			hInstance = new Harmony($"cyanox.lone079");
+			hInstance = new Harmony($"zenlet.lone079");
 			hInstance.PatchAll();
 
 			ev = new EventHandlers();
