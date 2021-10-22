@@ -49,7 +49,7 @@ namespace Lone079
 					player.SetRole(role);
 					Timing.CallDelayed(1f, () => player.Position = scp939pos);
 					player.Health = !Lone079.instance.Config.ScaleWithLevel ? player.MaxHealth * (Lone079.instance.Config.HealthPercent / 100f) : player.MaxHealth * ((Lone079.instance.Config.HealthPercent + ((level - 1) * 5)) / 100f);
-					player.Broadcast((ushort)Lone079.instance.Config.BroadcastTime, "<i>You have been respawned as a random SCP with half health because all other SCPs have died.</i>");
+					player.Broadcast((ushort)Lone079.instance.Config.BroadcastTime, Lone079.instance.Config.Broadcast_Message);
 				}
 			}
 		}
