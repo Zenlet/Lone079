@@ -6,7 +6,7 @@ SCP-079 will be turned into a random SCP with partial health and spawned in SCP-
 
 **[EXILED](https://github.com/galaxy119/EXILED) must be installed for this to work.**
 
-Place the "Lone079.dll" file in your sm_plugins folder.
+Place the "Lone079.dll" file in your exiled plugins folder. folder.
 
 # Configs
 
