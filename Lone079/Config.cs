@@ -10,5 +10,6 @@ namespace Lone079
 		public bool ScaleWithLevel { get; set; } = false;
 
 		public int HealthPercent { get; set; } = 50;
+		public int BroadcastTime { get; set; } = 10;
 	}
 }

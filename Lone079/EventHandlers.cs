@@ -4,6 +4,7 @@ using MEC;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Exiled.API.Extensions;
 
 namespace Lone079
 {
@@ -33,7 +34,7 @@ namespace Lone079
 
 		private IEnumerator<float> Check079(float delay = 1f)
 		{
-			if (Map.ActivatedGenerators != 5 && canChange)
+			if (Map.ActivatedGenerators != 3 && canChange)
 			{
 				yield return Timing.WaitForSeconds(delay);
 				IEnumerable<Player> enumerable = Player.List.Where(x => x.Team == Team.SCP);
@@ -48,12 +49,11 @@ namespace Lone079
 					player.SetRole(role);
 					Timing.CallDelayed(1f, () => player.Position = scp939pos);
 					player.Health = !Lone079.instance.Config.ScaleWithLevel ? player.MaxHealth * (Lone079.instance.Config.HealthPercent / 100f) : player.MaxHealth * ((Lone079.instance.Config.HealthPercent + ((level - 1) * 5)) / 100f);
-					player.Broadcast(10, "<i>You have been respawned as a random SCP with half health because all other SCPs have died.</i>");
+					player.Broadcast((ushort)Lone079.instance.Config.BroadcastTime, "<i>You have been respawned as a random SCP with half health because all other SCPs have died.</i>");
 				}
 			}
 		}
-
-		// no work
+		
 		public void OnPlayerLeave(LeftEventArgs ev)
 		{
 			if (ev.Player.Team == Team.SCP) Timing.RunCoroutine(Check079(3f));
@@ -63,14 +63,13 @@ namespace Lone079
 
 		public void OnRoundStart()
 		{
-			Timing.CallDelayed(1f, () => scp939pos = GameObject.FindObjectOfType<SpawnpointManager>().GetRandomPosition(scp079RespawnLocations[rand.Next(scp079RespawnLocations.Count)]).transform.position);
+			Timing.CallDelayed(1f, () => scp939pos = scp079RespawnLocations[rand.Next(scp079RespawnLocations.Count)].GetRandomSpawnProperties().Item1);
 			is106Contained = false;
 			canChange = true;
 		}
 
 		public void OnPlayerDied(DiedEventArgs ev)
 		{
-			//if (ev.Target.Team == Team.SCP) Timing.RunCoroutine(Check079(3f));
 			Timing.RunCoroutine(Check079(3f));
 		}
 

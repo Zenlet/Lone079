@@ -1,5 +1,4 @@
-﻿using HarmonyLib;
-using Exiled.API.Features;
+﻿using Exiled.API.Features;
 
 namespace Lone079
 {
@@ -8,8 +7,6 @@ namespace Lone079
 		public static Lone079 instance;
 		private EventHandlers ev;
 
-		private Harmony hInstance;
-
 		public override void OnEnabled()
 		{
 			base.OnEnabled();
@@ -17,9 +14,6 @@ namespace Lone079
 			if (!Config.IsEnabled) return;
 
 			instance = this;
-
-			hInstance = new Harmony($"zenlet.lone079");
-			hInstance.PatchAll();
 
 			ev = new EventHandlers();
 
@@ -39,8 +33,6 @@ namespace Lone079
 			Exiled.Events.Handlers.Player.Left -= ev.OnPlayerLeave;
 			Exiled.Events.Handlers.Scp106.Containing -= ev.OnScp106Contain;
 			Exiled.Events.Handlers.Warhead.Detonated -= ev.OnDetonated;
-
-			hInstance.UnpatchAll();
 
 			ev = null;
 		}
