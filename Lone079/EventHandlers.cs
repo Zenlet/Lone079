@@ -16,23 +16,6 @@ namespace Lone079
 
 		private bool is106Contained, canChange079;
 
-		private List<RoleType> scp079Respawns = new List<RoleType>()
-		{
-			RoleType.Scp173,
-			RoleType.Scp049,
-			RoleType.Scp096,
-			RoleType.Scp106,
-			RoleType.Scp93953,
-			RoleType.Scp93989
-		};
-
-		private List<RoleType> scp079RespawnLocations = new List<RoleType>()
-		{
-			RoleType.Scp049,
-			RoleType.Scp096,
-			RoleType.Scp93953
-		};
-
 		private IEnumerator<float> Check079(float delay = 1f)
 		{
 			if (Map.ActivatedGenerators != 3 && canChange079)
@@ -45,7 +28,7 @@ namespace Lone079
 				{
 					Player player = pList[0];
 					int level = player.Level;
-					RoleType role = scp079Respawns[rand.Next(scp079Respawns.Count)];
+					RoleType role = Lone079.instance.Config.scp079Respawns[rand.Next(Lone079.instance.Config.scp079Respawns.Count)];
 					if (is106Contained && role == RoleType.Scp106) role = RoleType.Scp93953;
 					player.SetRole(role);
 					Timing.CallDelayed(1f, () => player.Position = scp939pos);
@@ -64,7 +47,7 @@ namespace Lone079
 
 		public void OnRoundStart()
 		{
-			Timing.CallDelayed(1f, () => scp939pos = scp079RespawnLocations[rand.Next(scp079RespawnLocations.Count)].GetRandomSpawnProperties().Item1);
+			Timing.CallDelayed(1f, () => scp939pos = Lone079.instance.Config.scp079RespawnLocations[rand.Next(Lone079.instance.Config.scp079RespawnLocations.Count)].GetRandomSpawnProperties().Item1);
 			is106Contained = false;
 			canChange079 = true;
 		}
