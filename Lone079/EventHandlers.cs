@@ -21,7 +21,7 @@ namespace Lone079
 			if (Map.ActivatedGenerators != 3 && canChange079)
 			{
 				yield return Timing.WaitForSeconds(delay);
-				IEnumerable<Player> enumerable = Player.List.Where(x => x.Team == Team.SCP);
+				IEnumerable<Player> enumerable = Player.Get(Team.SCP);
 				if (!Lone079.instance.Config.CountZombies) enumerable = enumerable.Where(x => x.Role != RoleType.Scp0492);
 				List<Player> pList = enumerable.ToList();
 				if (pList.Count == 1 && pList[0].Role == RoleType.Scp079)
@@ -33,7 +33,7 @@ namespace Lone079
 					player.SetRole(role);
 					Timing.CallDelayed(1f, () => player.Position = scp939pos);
 					player.Health = !Lone079.instance.Config.ScaleWithLevel ? player.MaxHealth * (Lone079.instance.Config.HealthPercent / 100f) : player.MaxHealth * ((Lone079.instance.Config.HealthPercent + ((level - 1) * 5)) / 100f);
-					player.Broadcast((ushort)Lone079.instance.Config.BroadcastTime, Lone079.instance.Config.Broadcast_Message);
+					player.Broadcast((ushort)Lone079.instance.Config.BroadcastTime, Lone079.instance.Config.BroadcastMessage);
 				}
 			}
 		}

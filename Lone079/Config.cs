@@ -11,7 +11,7 @@ namespace Lone079
 		public bool ScaleWithLevel { get; set; } = false;
 
 		public int HealthPercent { get; set; } = 50;
-		public string Broadcast_Message { get; set; } = "<i>You have been respawned as a random SCP with half health because all other SCPs have died.</i>";
+		public string BroadcastMessage { get; set; } = "<i>You have been respawned as a random SCP with half health because all other SCPs have died.</i>";
 		public int BroadcastTime { get; set; } = 10;
 
 		public List<RoleType> scp079Respawns { get; set; } = new List<RoleType>
