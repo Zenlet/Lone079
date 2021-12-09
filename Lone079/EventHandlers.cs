@@ -12,7 +12,7 @@ namespace Lone079
 	{
 		private System.Random rand = new System.Random();
 
-		private Vector3 scp939pos;
+		private Vector3 scppos;
 
 		private bool is106Contained, canChange079;
 
@@ -31,9 +31,9 @@ namespace Lone079
 					RoleType role = Lone079.instance.Config.scp079Respawns[rand.Next(Lone079.instance.Config.scp079Respawns.Count)];
 					if (is106Contained && role == RoleType.Scp106) role = RoleType.Scp93953;
 					player.SetRole(role);
-					Timing.CallDelayed(1f, () => player.Position = scp939pos);
+					Timing.CallDelayed(1f, () => player.Position = scppos);
 					player.Health = !Lone079.instance.Config.ScaleWithLevel ? player.MaxHealth * (Lone079.instance.Config.HealthPercent / 100f) : player.MaxHealth * ((Lone079.instance.Config.HealthPercent + ((level - 1) * 5)) / 100f);
-					player.Broadcast((ushort)Lone079.instance.Config.BroadcastTime, Lone079.instance.Config.BroadcastMessage);
+					player.Broadcast(Lone079.instance.Config.BroadcastTime, Lone079.instance.Config.BroadcastMessage);
 				}
 			}
 		}
@@ -47,7 +47,7 @@ namespace Lone079
 
 		public void OnRoundStart()
 		{
-			Timing.CallDelayed(1f, () => scp939pos = Lone079.instance.Config.scp079RespawnLocations[rand.Next(Lone079.instance.Config.scp079RespawnLocations.Count)].GetRandomSpawnProperties().Item1);
+			Timing.CallDelayed(1f, () => scppos = Lone079.instance.Config.scp079RespawnLocations[rand.Next(Lone079.instance.Config.scp079RespawnLocations.Count)].GetRandomSpawnProperties().Item1);
 			is106Contained = false;
 			canChange079 = true;
 		}
