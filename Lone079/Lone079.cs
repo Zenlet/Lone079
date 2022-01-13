@@ -9,7 +9,6 @@ namespace Lone079
 		public override string Author { get; } = "Zenlet";
 		public override Version RequiredExiledVersion { get; } = new Version(3, 0, 0);
 		public override Version Version { get; } = new Version(1, 2, 2);
-
 		public static Lone079 instance;
 		private EventHandlers ev;
 
@@ -28,6 +27,8 @@ namespace Lone079
 
 		public override void OnDisabled()
 		{
+			instance = null;
+
 			Exiled.Events.Handlers.Server.RoundStarted -= ev.OnRoundStart;
 			Exiled.Events.Handlers.Player.Died -= ev.OnPlayerDied;
 			Exiled.Events.Handlers.Player.Left -= ev.OnPlayerLeave;

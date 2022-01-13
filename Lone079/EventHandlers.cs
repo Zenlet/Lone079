@@ -10,25 +10,23 @@ namespace Lone079
 {
 	class EventHandlers
 	{
-		private System.Random rand = new System.Random();
-
 		private Vector3 scppos;
 
 		private bool is106Contained, canChange079;
 
 		private IEnumerator<float> Check079(float delay = 1f)
 		{
-			if (Map.ActivatedGenerators != 3 && canChange079)
+			if (Map.ActivatedGenerators != 3 && canChange079 == true)
 			{
 				yield return Timing.WaitForSeconds(delay);
 				IEnumerable<Player> enumerable = Player.Get(Team.SCP);
 				if (!Lone079.instance.Config.CountZombies) enumerable = enumerable.Where(x => x.Role != RoleType.Scp0492);
-				List<Player> pList = enumerable.ToList();
+				List< Player> pList = enumerable.ToList();
 				if (pList.Count == 1 && pList[0].Role == RoleType.Scp079)
 				{
 					Player player = pList[0];
 					int level = player.Level;
-					RoleType role = Lone079.instance.Config.scp079Respawns[rand.Next(Lone079.instance.Config.scp079Respawns.Count)];
+					RoleType role = Lone079.instance.Config.scp079Respawns[Random.Range(0, Lone079.instance.Config.scp079Respawns.Count)];
 					if (is106Contained && role == RoleType.Scp106) role = RoleType.Scp93953;
 					player.SetRole(role);
 					Timing.CallDelayed(1f, () => player.Position = scppos);
@@ -47,14 +45,14 @@ namespace Lone079
 
 		public void OnRoundStart()
 		{
-			Timing.CallDelayed(1f, () => scppos = Lone079.instance.Config.scp079RespawnLocations[rand.Next(Lone079.instance.Config.scp079RespawnLocations.Count)].GetRandomSpawnProperties().Item1);
+			scppos = Lone079.instance.Config.scp079RespawnLocations[Random.Range(0, Lone079.instance.Config.scp079RespawnLocations.Count)].GetRandomSpawnProperties().Item1;
 			is106Contained = false;
 			canChange079 = true;
 		}
 
 		public void OnPlayerDied(DiedEventArgs ev)
 		{
-			Timing.RunCoroutine(Check079(3f));
+			if (ev.Target.Team == Team.SCP) Timing.RunCoroutine(Check079(3f));
 		}
 
 		public void OnScp106Contain(ContainingEventArgs ev)
