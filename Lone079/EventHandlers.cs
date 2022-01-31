@@ -14,7 +14,6 @@ namespace Lone079
 		bool is106Contained, canChange079;
 		public void Check079()
 		{
-			Log.Info("Check079");
 			if (Map.ActivatedGenerators != 3 && canChange079 == true)
 			{
 				var scp = Player.List.Where(x => x.Team == Team.SCP).ToList();
