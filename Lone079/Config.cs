@@ -8,7 +8,6 @@ namespace Lone079
 		public bool IsEnabled { get; set; } = true;
 
 		public bool CountZombies { get; set; } = false;
-		public bool ScaleWithLevel { get; set; } = false;
 
 		public int HealthPercent { get; set; } = 50;
 		public string BroadcastMessage { get; set; } = "<i>You have been respawned as a random SCP with half health because all other SCPs have died.</i>";
