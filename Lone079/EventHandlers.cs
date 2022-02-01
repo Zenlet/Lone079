@@ -38,7 +38,7 @@ namespace Lone079
 			}
 		}
 
-        public void OnPlayerLeave(LeftEventArgs ev)
+		public void OnPlayerLeave(LeftEventArgs ev)
 		{
 			if (ev.Player.Team == Team.SCP)
 			{
