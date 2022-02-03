@@ -11,7 +11,7 @@ namespace Lone079
 	class EventHandlers
 	{
 		private Vector3 scppos;
-		bool is106Contained, canChange079;
+		private bool is106Contained, canChange079;
 		public void Check079()
 		{
 			if (Map.ActivatedGenerators != 3 && canChange079 == true)
