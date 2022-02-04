@@ -16,7 +16,15 @@ namespace Lone079
 		{
 			if (Map.ActivatedGenerators != 3 && canChange079 == true)
 			{
-				var scp = Player.List.Where(x => x.Team == Team.SCP).ToList();
+				List<Player> scp = new List<Player>();
+				foreach (Player player in Player.List)
+				{
+					if (player.Team == Team.SCP)
+					{
+						scp.Add(player);
+					}
+				}
+				
 				if (Lone079.plugin.Config.CountZombies == false)
 				{
 					scp.RemoveAll(x => x.Role == RoleType.Scp0492);
