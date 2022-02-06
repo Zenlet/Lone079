@@ -16,15 +16,7 @@ namespace Lone079
 		{
 			if (Map.ActivatedGenerators != 3 && canChange079 == true)
 			{
-				List<Player> scp = new List<Player>();
-				foreach (Player player in Player.List)
-				{
-					if (player.Team == Team.SCP)
-					{
-						scp.Add(player);
-					}
-				}
-				
+				var scp = Player.List.Where(x => x.Team == Team.SCP).ToList();
 				if (Lone079.plugin.Config.CountZombies == false)
 				{
 					scp.RemoveAll(x => x.Role == RoleType.Scp0492);
@@ -68,11 +60,6 @@ namespace Lone079
 
 		public void OnPlayerDied(DiedEventArgs ev)
 		{
-			if (ev.Handler.Attacker == null || !RoundSummary.RoundInProgress())
-			{
-				return;
-			}
-
 			if (ev.Handler.Attacker.Team == Team.SCP)
 			{
 				Check079();
