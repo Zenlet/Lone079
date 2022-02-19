@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Exiled.API.Extensions;
+using Exiled.API.Enums;
 
 namespace Lone079
 {
@@ -14,9 +15,9 @@ namespace Lone079
 		private bool is106Contained, canChange079;
 		public void Check079()
 		{
-			if (Map.ActivatedGenerators != 3 && canChange079 == true)
+			if (Generator.Get(GeneratorState.Engaged).Count() != 3 && canChange079 == true)
 			{
-				var scp = Player.List.Where(x => x.Team == Team.SCP).ToList();
+				var scp = Player.List.Where(x => x.Role.Team == Team.SCP).ToList();
 				if (Lone079.plugin.Config.CountZombies == false)
 				{
 					scp.RemoveAll(x => x.Role == RoleType.Scp0492);
@@ -40,7 +41,7 @@ namespace Lone079
 
 		public void OnPlayerLeave(LeftEventArgs ev)
 		{
-			if (ev.Player.Team == Team.SCP)
+			if (ev.Player.Role.Team == Team.SCP)
 			{
 				Check079();
 			}
@@ -60,7 +61,7 @@ namespace Lone079
 
 		public void OnPlayerDied(DiedEventArgs ev)
 		{
-			if (ev.Handler.Attacker.Team == Team.SCP)
+			if (ev.Handler.Attacker.Role.Team == Team.SCP)
 			{
 				Check079();
 			}
