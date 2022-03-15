@@ -61,6 +61,10 @@ namespace Lone079
 
 		public void OnPlayerDied(DiedEventArgs ev)
 		{
+			if (ev.Handler.Attacker == null)
+			{
+				return;
+			}
 			if (ev.Handler.Attacker.Role.Team == Team.SCP)
 			{
 				Check079();
