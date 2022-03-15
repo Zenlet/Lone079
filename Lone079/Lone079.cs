@@ -7,7 +7,7 @@ namespace Lone079
 	{
 		public override string Name { get; } = "Lone079";
 		public override string Author { get; } = "Zenlet";
-		public override Version RequiredExiledVersion { get; } = new Version(4, 0, 0);
+		public override Version RequiredExiledVersion { get; } = new Version(5, 0, 0);
 		public override Version Version { get; } = new Version(1, 2, 6);
 		public static Lone079 plugin;
 		private EventHandlers ev;
