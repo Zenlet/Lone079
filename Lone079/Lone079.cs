@@ -1,41 +1,38 @@
-﻿using Exiled.API.Features;
-using System;
-
-namespace Lone079
+﻿namespace Lone079
 {
-	public class Lone079 : Plugin<Config>
-	{
-		public override string Name { get; } = "Lone079";
-		public override string Author { get; } = "Zenlet";
-		public override Version RequiredExiledVersion { get; } = new Version(5, 0, 0);
-		public override Version Version { get; } = new Version(1, 2, 6);
-		public static Lone079 plugin;
-		private EventHandlers ev;
+    using System;
+    using Exiled.API.Features;
 
-		public override void OnEnabled()
-		{
-			plugin = this;
-			ev = new EventHandlers();
+    public class Lone079 : Plugin<Config>
+    {
+        private EventHandlers eventHandlers;
 
-			Exiled.Events.Handlers.Server.RoundStarted += ev.OnRoundStart;
-			Exiled.Events.Handlers.Player.Died += ev.OnPlayerDied;
-			Exiled.Events.Handlers.Player.Left += ev.OnPlayerLeave;
-			Exiled.Events.Handlers.Scp106.Containing += ev.OnScp106Contain;
-			Exiled.Events.Handlers.Warhead.Detonated += ev.OnDetonated;
-			base.OnEnabled();
-		}
+        public override Version RequiredExiledVersion { get; } = new Version(5, 0, 0);
 
-		public override void OnDisabled()
-		{
-			plugin = null;
+        public override void OnEnabled()
+        {
+            if (!Config.Validate(out string error))
+            {
+                Log.Error(error);
+                return;
+            }
 
-			Exiled.Events.Handlers.Server.RoundStarted -= ev.OnRoundStart;
-			Exiled.Events.Handlers.Player.Died -= ev.OnPlayerDied;
-			Exiled.Events.Handlers.Player.Left -= ev.OnPlayerLeave;
-			Exiled.Events.Handlers.Scp106.Containing -= ev.OnScp106Contain;
-			Exiled.Events.Handlers.Warhead.Detonated -= ev.OnDetonated;
-			ev = null;
-			base.OnDisabled();
-		}
-	}
+            eventHandlers = new EventHandlers(this);
+            Exiled.Events.Handlers.Player.Died += eventHandlers.OnDied;
+            Exiled.Events.Handlers.Scp106.Containing += eventHandlers.OnContaining;
+            Exiled.Events.Handlers.Server.RoundStarted += eventHandlers.OnRoundStarted;
+            Exiled.Events.Handlers.Warhead.Detonated += eventHandlers.OnDetonated;
+            base.OnEnabled();
+        }
+
+        public override void OnDisabled()
+        {
+            Exiled.Events.Handlers.Player.Died -= eventHandlers.OnDied;
+            Exiled.Events.Handlers.Scp106.Containing -= eventHandlers.OnContaining;
+            Exiled.Events.Handlers.Server.RoundStarted -= eventHandlers.OnRoundStarted;
+            Exiled.Events.Handlers.Warhead.Detonated -= eventHandlers.OnDetonated;
+            eventHandlers = null;
+            base.OnDisabled();
+        }
+    }
 }
