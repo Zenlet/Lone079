@@ -1,4 +1,11 @@
-﻿namespace Lone079
+﻿// -----------------------------------------------------------------------
+// <copyright file="EventHandlers.cs" company="Zenlet">
+// Copyright (c) Zenlet. All rights reserved.
+// Licensed under the CC BY-SA 3.0 license.
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace Lone079
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -10,6 +17,9 @@
     using NorthwoodLib.Pools;
     using UnityEngine;
 
+    /// <summary>
+    /// Handles events derived from <see cref="Exiled.Events.Handlers"/>.
+    /// </summary>
     public class EventHandlers
     {
         private readonly Lone079 lone079;
@@ -17,16 +27,23 @@
         private bool is106Contained;
         private Vector3 scpPos;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EventHandlers"/> class.
+        /// </summary>
+        /// <param name="lone079">An instance of the <see cref="Lone079"/> class.</param>
         public EventHandlers(Lone079 lone079) => this.lone079 = lone079;
 
+        /// <inheritdoc cref="Exiled.Events.Handlers.Player.OnDied(DiedEventArgs)"/>
         public void OnDied(DiedEventArgs ev)
         {
             if (ev.TargetOldRole.GetTeam() == Team.SCP)
                 Check079();
         }
 
+        /// <inheritdoc cref="Exiled.Events.Handlers.Scp106.OnContaining(ContainingEventArgs)"/>
         public void OnContaining(ContainingEventArgs ev) => is106Contained = true;
 
+        /// <inheritdoc cref="Exiled.Events.Handlers.Server.OnRoundStarted"/>
         public void OnRoundStarted()
         {
             scpPos = lone079.Config.Scp079RespawnLocations[Random.Range(0, lone079.Config.Scp079RespawnLocations.Count)].GetRandomSpawnProperties().Item1;
@@ -34,6 +51,7 @@
             canChange079 = true;
         }
 
+        /// <inheritdoc cref="Exiled.Events.Handlers.Warhead.OnDetonated"/>
         public void OnDetonated()
         {
             canChange079 = false;
