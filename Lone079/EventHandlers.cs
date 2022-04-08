@@ -41,7 +41,7 @@
 
         private void Check079()
         {
-            if (Generator.Get(GeneratorState.Engaged).Count() == 3 || !canChange079)
+            if (Generator.Get(GeneratorState.Engaged).Count() == 3 && canChange079 == false)
                 return;
 
             List<Player> scpList = lone079.Config.CountZombies
